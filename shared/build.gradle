@@ -1,3 +1,6 @@
+// The iOS platform is wrapped in Kotlin/Native in a platform package
+// For Android to get Android OS version, we need to declare this module of type "com.android.library"
+
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-multiplatform'
 
