@@ -49,3 +49,32 @@ kotlin {
 configurations {
     compileClasspath
 }
+
+task packForXCode(type: Sync) {
+    // set directory for the Framework and determine correct Framework to build
+    // based on target configuration selected in the XCode project (default is 'DEBUG')
+
+    final File frameworkDir = new File(buildDir, "xcode-frameworks")
+    final String mode = project.findProperty("XCODE_CONFIGURATION")?.toUpperCase() ?: 'DEBUG'
+    final def framework = kotlin.targets.ios.binaries.getFramework("shared", mode)
+
+    inputs.property "mode", mode
+    dependsOn framework.linkTask
+
+    // copy file from build dir into Framework dir
+    from { framework.outputFile.parentFile }
+    into frameworkDir
+
+    // Create bash script in Framework dir--XCode will call it to build the shared Framework.
+    // the script uses JDK version embedded into Android Studio
+    doLast {
+        new File(frameworkDir, 'gradlew').with {
+            text = "#!/bin/bash\nexport 'JAVA_HOME=${System.getProperty("java.home")}'\ncd '${rootProject.rootDir}'\n./gradlew \$@\n"
+            setExecutable(true)
+        }
+    }
+}
+
+// XCode should compile the Framework before the build
+tasks.build.dependsOn packForXCode
+
