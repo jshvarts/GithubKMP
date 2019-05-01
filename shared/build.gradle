@@ -33,14 +33,21 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api 'org.jetbrains.kotlin:kotlin-stdlib-common'
+            implementation "io.ktor:ktor-client-core:$ktor_version"
+            implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-common:$coroutines_version"
         }
 
         androidMain.dependencies {
+            // android versions of the common libraries
             api 'org.jetbrains.kotlin:kotlin-stdlib'
+            implementation "io.ktor:ktor-client-android:$ktor_version"
+            implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
         }
 
         iosMain.dependencies {
-            // we don't need to add standard library since Kotlin/Native will include the stdlib when compiling code for iOS
+            // we don't need to add stdlib since Kotlin/Native will include the stdlib when compiling code for iOS
+            implementation "io.ktor:ktor-client-ios:$ktor_version"
+            implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core-native:$kotlinx_coroutines_version"
         }
     }
 }
