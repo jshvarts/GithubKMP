@@ -2,10 +2,11 @@ package com.jshvarts.api.model
 
 import com.jshvarts.api.GitHubApi
 import com.jshvarts.api.UpdateProblem
+import com.jshvarts.model.Member
 import com.jshvarts.presentation.DataRepository
 
 class MembersDataRepository(private val api: GitHubApi) : DataRepository {
-    override var members: String? = null
+    override var members: List<Member>? = null
 
     override var onRefreshListeners: List<() -> Unit> = emptyList()
 
