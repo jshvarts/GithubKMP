@@ -3,8 +3,10 @@ package com.jshvarts.githubkmp
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.jshvarts.Greeting
 import com.jshvarts.api.UpdateProblem
+import com.jshvarts.model.Member
 import com.jshvarts.presentation.MemberPresenter
 import com.jshvarts.presentation.MembersView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -14,11 +16,15 @@ class MainActivity : AppCompatActivity(), MembersView {
     private val repository by lazy { (application as GithubKMPApplication).dataRepository }
     private val presenter by lazy { MemberPresenter(this, repository) }
 
+    private lateinit var adapter: MemberAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         greeting.text = Greeting().greeting()
+
+        setupRecyclerVIew()
 
         presenter.onCreate()
     }
@@ -28,11 +34,13 @@ class MainActivity : AppCompatActivity(), MembersView {
         presenter.onDestroy()
     }
 
-    override var isUpdating = false // not going to be used
+    override var isUpdating = false // not go ing to be used
 
-    override fun onUpdate(members: String) {
+    override fun onUpdate(members: List<Member>) {
+        adapter.members = members
+
         runOnUiThread {
-            Toast.makeText(this, members, Toast.LENGTH_SHORT).show()
+           adapter.notifyDataSetChanged()
         }
     }
 
@@ -45,5 +53,11 @@ class MainActivity : AppCompatActivity(), MembersView {
         runOnUiThread {
             Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun setupRecyclerVIew() {
+        membersRecyclerView.layoutManager = LinearLayoutManager(this)
+        adapter = MemberAdapter(emptyList())
+        membersRecyclerView.adapter = adapter
     }
 }
