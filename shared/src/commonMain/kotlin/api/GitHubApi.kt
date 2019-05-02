@@ -11,11 +11,9 @@ class GitHubApi {
     private val membersUrl = Url("https://api.github.com/orgs/raywenderlich/members")
 
     suspend fun getMembers(): String {
-        println("james in getMembers")
         val result: String = client.get {
             url(this@GitHubApi.membersUrl.toString())
         }
-        println("james result $result")
         return result
     }
 }
