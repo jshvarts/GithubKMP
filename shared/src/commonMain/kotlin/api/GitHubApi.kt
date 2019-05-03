@@ -11,7 +11,7 @@ import kotlinx.serialization.list
 class GitHubApi {
     private val client = HttpClient()
 
-    private val membersUrl = Url("https://api.github.com/orgs/raywenderlich/members")
+    private val membersUrl = Url("https://api.github.com/orgs/squarespace/members")
 
     suspend fun getMembers(): List<Member> {
         val result: String = client.get {
