@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GithubKMP</string>
+    <string name="app_name">Squarespace Kotlin Multiplatform</string>
     <string name="update_problem">Failed to get data from server, check your connection</string>
     <string name="unknown_error">Unknown error</string>
     <string name="member_avatar">Member Avatar</string>
