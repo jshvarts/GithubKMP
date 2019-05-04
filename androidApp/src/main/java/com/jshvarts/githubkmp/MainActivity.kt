@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), MembersView {
 
     private val repository by lazy { (application as GithubKMPApplication).dataRepository }
-    private val presenter by lazy { MemberPresenter(this, repository) }
+    private val settings by lazy { (application as GithubKMPApplication).settings }
+    private val presenter by lazy { MemberPresenter(this, repository, settings) }
 
     private lateinit var adapter: MemberAdapter
 
@@ -26,6 +27,12 @@ class MainActivity : AppCompatActivity(), MembersView {
 
         setupRecyclerVIew()
 
+        showButton.setOnClickListener {
+            showButton.hideKeyboard()
+            // TODO add validation
+            presenter.update(organizationField.text.toString())
+        }
+
         presenter.onCreate()
     }
 
@@ -36,11 +43,12 @@ class MainActivity : AppCompatActivity(), MembersView {
 
     override var isUpdating = false // not go ing to be used
 
-    override fun onUpdate(members: List<Member>) {
+    override fun onUpdate(members: List<Member>, organization: String) {
         adapter.members = members
 
         runOnUiThread {
-           adapter.notifyDataSetChanged()
+            organizationField.setText(organization)
+            adapter.notifyDataSetChanged()
         }
     }
 

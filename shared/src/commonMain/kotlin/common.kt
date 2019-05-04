@@ -9,3 +9,5 @@ class Greeting {
 }
 
 internal expect val ApplicationDispatcher: CoroutineContext
+
+expect class UserSettings

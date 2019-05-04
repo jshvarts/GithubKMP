@@ -7,6 +7,35 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+    <LinearLayout
+            android:id="@+id/header"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/header_height"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/membersRecyclerView">
+
+        <EditText
+                android:id="@+id/organizationField"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/padding_standard"
+                android:inputType="text"
+                android:hint="@string/organization"
+                android:layout_weight="3"/>
+
+        <Button
+                android:id="@+id/showButton"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/padding_standard"
+                android:text="@string/show"
+                android:layout_weight="1"/>
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/membersRecyclerView"
             android:layout_width="0dp"
@@ -14,7 +43,7 @@
             app:layout_constraintBottom_toTopOf="@id/greeting"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/header">
     </androidx.recyclerview.widget.RecyclerView>
 
     <TextView

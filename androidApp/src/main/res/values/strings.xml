@@ -3,4 +3,6 @@
     <string name="update_problem">Failed to get data from server, check your connection</string>
     <string name="unknown_error">Unknown error</string>
     <string name="member_avatar">Member Avatar</string>
+    <string name="organization">Organization</string>
+    <string name="show">Show</string>
 </resources>
