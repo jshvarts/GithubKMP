@@ -19,6 +19,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            matchingFallbacks = ['release']
+        }
     }
     packagingOptions {
         exclude 'META-INF/*.kotlin_module' // address build error that would occur due to duplicated files in the build
@@ -38,6 +41,8 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation "com.russhwolf:multiplatform-settings:$mpsettings_version"
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
