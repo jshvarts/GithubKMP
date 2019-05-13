@@ -33,8 +33,9 @@ class MemberPresenter(
         view.isUpdating = true
         updateData()
     }
-    
+
     private fun showData() {
+        view.hideLoading()
         view.onUpdate(repository.members.orEmpty(), settings[ORGANIZATION_KEY, DEFAULT_ORGANIZATION])
     }
 

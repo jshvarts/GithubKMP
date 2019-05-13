@@ -33,6 +33,10 @@ class MainActivity : AppCompatActivity(), MembersView {
             presenter.update(organizationField.text.toString())
         }
 
+        swipeLayout.setOnRefreshListener {
+            presenter.update(organizationField.text.toString())
+        }
+
         presenter.onCreate()
     }
 
@@ -41,7 +45,11 @@ class MainActivity : AppCompatActivity(), MembersView {
         presenter.onDestroy()
     }
 
-    override var isUpdating = false // not go ing to be used
+    override var isUpdating = false // not going to be used
+
+    override fun hideLoading() {
+        swipeLayout.isRefreshing = false
+    }
 
     override fun onUpdate(members: List<Member>, organization: String) {
         adapter.members = members
